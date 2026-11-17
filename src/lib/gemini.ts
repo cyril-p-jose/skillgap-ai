@@ -1,0 +1,26 @@
+// Add your API key here later
+const GEMINI_API_KEY = '';
+
+// Placeholder for real Gemini integration.
+// Returns null when no key is configured, so callers can fall back
+// to the local logic in aiEngine.ts without breaking the app.
+export async function callGeminiAI(prompt: string): Promise<string | null> {
+  if (!GEMINI_API_KEY) {
+    return null;
+  }
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      }
+    );
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  } catch {
+    return null;
+  }
+}
