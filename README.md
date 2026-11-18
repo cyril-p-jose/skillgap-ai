@@ -44,9 +44,9 @@ SkillGap AI gives students a quick skill check based on their branch and target 
 
 ## 🌐 Live Demo
 
-**Live URL:** [Add your Netlify link here after deploy]
+**Live URL:** https://skillgap-ai-jet.vercel.app/
 
-> Bolt free version deployed via Netlify from GitHub.
+> Bolt free version deployed via vercel from GitHub.
 
 ## 🖥 How to Run Locally
 
@@ -79,10 +79,10 @@ Full deployment guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 Short steps:
 1. Push code from Bolt to GitHub repo `skillgap-ai-final`
-2. Import repo in Netlify
+2. Import repo in vercel
 3. Build command: `npm run build`
 4. Publish directory: `dist`
-5. Add Environment Variables in Netlify ONLY:
+5. if there Add Environment Variables in versel ONLY:
    `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
 6. Deploy site
 
