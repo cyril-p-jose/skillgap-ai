@@ -1,4 +1,4 @@
-import { GraduationCap, CheckCircle2, Wrench, User } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Wrench, User, Github } from 'lucide-react';
 
 const FEATURES = [
   'Quick 5 question skill test',
@@ -68,18 +68,27 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Built by */}
-        <section className="mt-10">
-          <div className="bg-navy-800 rounded-xl p-6 sm:p-8 text-white">
-            <div className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              <h2 className="text-lg sm:text-xl font-semibold">Built by Cyril P Jose</h2>
-            </div>
-            <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed">
-              A free project for Kerala college students preparing for campus placements.
-            </p>
-          </div>
-        </section>
+       {/* Open Source */}
+<section className="mt-10">
+  <div className="bg-navy-800 rounded-xl p-6 sm:p-8 text-white">
+    <div className="flex items-center gap-2">
+      <Users className="w-5 h-5" />
+      <h2 className="text-lg sm:text-xl font-semibold">Open Source Project by Cyril P Jose</h2>
+    </div>
+    <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed">
+      A free, community-driven project for Kerala college students preparing for campus placements. Built with ❤️ and open for contributions from students & developers.
+    </p>
+    <a 
+      href="https://github.com/cyril-p-jose/skillgap-ai" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 mt-4 text-sm font-medium bg-white text-navy-800 px-4 py-2 rounded-lg hover:bg-white/90 transition"
+    >
+      <Github className="w-4 h-4" />
+      Contribute on GitHub
+    </a>
+  </div>
+</section>
       </div>
     </div>
   );
