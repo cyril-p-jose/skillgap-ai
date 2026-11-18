@@ -1,7 +1,7 @@
 # SkillGap AI - Find Your Placement Skill Gap in 2 Minutes
 
 <div align="center">
-  <img src="banner.png" alt="SkillGap AI Banner" width="100%">
+  <img src="skillgap.jpg" alt="SkillGap AI Banner" width="100%">
 </div>
 
 <p align="center">
