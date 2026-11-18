@@ -1,147 +1,141 @@
-# 🎯 SkillGap AI
+# SkillGap AI - Find Your Placement Skill Gap in 2 Minutes
 
-SkillGap AI is a free web app that helps college students find their placement skill gaps in just 2 minutes.
+<div align="center">
+  <img src="banner.png" alt="SkillGap AI Banner" width="100%">
+</div>
 
-Built by **Cyril P Jose**
+<p align="center">
+  <b>Free 2-minute placement skill check for Kerala college students</b><br>
+  Answer 5 simple questions and get instant score, strengths, weaknesses & 7-day action plan.
+</p>
 
-## 📌 Problem
+<p align="center">
+  <a href="https://skillgap-ai-jet.vercel.app/" target="_blank"><b>🔗 Live Demo</b></a> |
+  <a href="https://github.com/cyril-p-jose/skillgap-ai" target="_blank"><b>💻 GitHub Repo</b></a> |
+  <a href="CONTRIBUTING.md"><b>🤝 Contribute</b></a>
+</p>
 
-College students in Kerala often have no clear idea of what skills they are missing before campus placements. Companies test different skills, and students waste time preparing randomly without knowing their real weak areas.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat" />
+</p>
 
-## 💡 Solution
+<p align="center">
+  <img src="https://img.shields.io/github/stars/cyril-p-jose/skillgap-ai?style=social" />
+  <img src="https://img.shields.io/github/forks/cyril-p-jose/skillgap-ai?style=social" />
+  <img src="https://img.shields.io/github/issues/cyril-p-jose/skillgap-ai" />
+</p>
 
-SkillGap AI gives students a quick skill check based on their branch and target company. In 2 minutes, they get a readiness score, a list of their strengths and weaknesses, a company match percentage, a company-specific tip, and a simple 7 day study plan.
+---
 
-## ✨ Features
+## 🚀 Features
 
-- Quick 5 question skill test (Yes / No / Learning)
-- Branch selection: CSE, ECE, EEE, Mechanical, Civil
-- Target company selection: UST Kochi, IBS Software, TCS, Infosys, and more
-- Skill and target role selection (Frontend, Backend, Data Analyst, etc.)
-- AI style readiness score with circular progress
-- Strengths and weaknesses report
-- Company match percentage
-- Company-specific preparation tips
-- 7 day improvement roadmap
-- Confetti celebration when score is above 80
-- About page - About SkillGap AI by Cyril P Jose
-- WhatsApp Share button on Roadmap / Report page
-- Fully responsive — works on mobile, tablet, and desktop
+- **5 Question Skill Test** - Quick 2-minute assessment
+- **Branch & Company Selection** - CSE, ECE, ME, CE, EEE & TCS, Infosys, Wipro, etc.
+- **Instant Score & Report** - Skill Readiness Score with strengths & weaknesses
+- **Company Match %** - Based on target company weightage
+- **7-Day Action Plan** - Step-by-step plan to close the gap
+- **WhatsApp Share** - Share results in one click
+- **Fully Responsive** - Mobile, Tablet & Desktop friendly
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-| Technology    | Purpose                        |
-| ------------- | ------------------------------ |
-| React         | User interface                 |
-| TypeScript    | Type safety                    |
-| Vite          | Build tool and dev server      |
-| Tailwind CSS  | Styling and responsive design  |
-| Lucide React  | Icons                          |
-| Inter         | Font                           |
-| Supabase      | Auth and database (optional for future login) |
-| Vercel       | Deployment                     |
-| GitHub        | Code hosting                   |
+| Tech | Purpose |
+| :--- | :--- |
+| **React** | UI Components & State Management |
+| **Vite** | Fast Dev Server & Production Build |
+| **Tailwind CSS** | Utility-first Styling & Responsive Design |
+| **JavaScript** | Score Logic, Flow Control, Plan Generation |
+| **Vercel** | Deployment & Live Hosting |
+| **Bolt** | Initial Prototyping |
 
-## 🌐 Live Demo
+## 📂 Project Structure
 
-**Live URL:** https://skillgap-ai-jet.vercel.app/
+```
+skillgap-ai/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Home.jsx
+│   │   ├── SelectPage.jsx
+│   │   ├── SkillsPage.jsx
+│   │   ├── TestPage.jsx
+│   │   └── ReportPage.jsx
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── index.html
+├── vite.config.js
+├── tailwind.config.js
+└── package.json
+```
 
-> Bolt free version deployed via vercel from GitHub.
+## ⚙️ How It Works
 
-## 🖥 How to Run Locally
+1. User selects Branch & Target Company
+2. Answers 5 simple questions
+3. JavaScript logic calculates score
+4. Report generated with strengths, weaknesses, company match
+5. 7-Day plan created based on weak areas
+6. User can share result on WhatsApp
+
+## 🏃 Run Locally
 
 ```bash
-# 1. Clone the project
-git clone https://github.com/cyril-p-jose/skillgap-ai-final.git
-
-# 2. Go into the project folder
-cd skillgap-ai-final
-
-# 3. Install dependencies
+git clone https://github.com/cyril-p-jose/skillgap-ai.git
+cd skillgap-ai
 npm install
-
-# 4. Start the app
 npm run dev
 ```
 
-Then open the app in your browser.
+Open `http://localhost:5173`
 
-For Supabase features, create a `.env` file locally:
-```
-VITE_SUPABASE_URL=your_url
-VITE_SUPABASE_ANON_KEY=your_key
-```
-Do not push `.env` file to GitHub.
+## 🔨 Build
 
-## 🚀 Deployment
-
-Full deployment guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
-
-Short steps:
-1. Push code from Bolt to GitHub repo `skillgap-ai-final`
-2. Import repo in vercel
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. if there Add Environment Variables in versel ONLY:
-   `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
-6. Deploy site
-
-No real keys are stored in GitHub.
-
-## 📝 Documentation
-
-- Prompts Used in Bolt: See [PROMPTS_USED.md](./PROMPTS_USED.md)
-- Deployment Guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
-
-Bolt version work completed upto WhatsApp Share only. Only 3 prompts used:
-1. Initial Build
-2. About Page
-3. WhatsApp Share Feature
-
-## ⚠️ Note on Bolt Badge
-
-Bolt free version shows "Built with Bolt" badge on live site. This cannot be removed in free version. This is a Bolt limitation, not part of our code. Future rebuild version will be clean without badge.
-
-## 📁 Project Structure
-
-```
-skillgap-ai-final/
-├── src/
-│   ├── components/
-│   │   ├── Confetti.tsx        # Confetti animation for high scores
-│   │   ├── Header.tsx          # Dark blue app header
-│   │   ├── HomePage.tsx        # Landing page
-│   │   ├── LoadingScreen.tsx   # "AI is thinking" screen
-│   │   ├── ReportPage.tsx      # Score, strengths, weaknesses, roadmap
-│   │   ├── SelectPage.tsx      # Branch and company selection
-│   │   ├── SkillsPage.tsx      # Skills and target role selection
-│   │   ├── TestPage.tsx        # 5 question skill test
-│   │   └── AboutPage.tsx       # About SkillGap AI page
-│   ├── lib/
-│   │   ├── aiEngine.ts         # AI report logic and 7 day roadmap
-│   │   └── gemini.ts           # Gemini API placeholder (optional)
-│   ├── data.ts                 # Questions, branches, companies
-│   ├── App.tsx                 # Page flow
-│   └── main.tsx                # App entry point
-├── index.html
-├── README.md
-├── PROMPTS_USED.md
-└── DEPLOYMENT.md
+```bash
+npm run build
 ```
 
-## 🔮 Future Scope
+## ☁️ Deployment
 
-- Login for students to save reports
-- Real AI questions using the Gemini API
-- More companies and roles
-- Detailed topic-wise practice links
-- Leaderboard for college students
-- Downloadable PDF report
-- Rebuild in Lovable for clean version without Bolt badge
+Deployed on **Vercel** via GitHub integration.
+Live: https://skillgap-ai-jet.vercel.app/
 
-## 📞 Contact
+## 🤝 Contributing
 
-Built by **Cyril P Jose**
+This project is **open source** and contributions are welcome!
 
-- GitHub: [github.com/cyril-p-jose](https://github.com/cyril-p-jose)
-- LinkedIn: https://in.linkedin.com/in/cyril-p-jose
+1. Fork this repo
+2. Create your feature branch
+3. Commit your changes
+4. Open a Pull Request
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for complete guide.
+
+New to open source? Look for issues labeled `good first issue`.
+
+## 🌟 Open Source
+
+Licensed under **MIT License**. Feel free to use, modify and contribute with credit.
+
+## 🙏 Contributors
+
+Thanks to all contributors who help improve SkillGap AI for students.
+
+<a href="https://github.com/cyril-p-jose/skillgap-ai/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cyril-p-jose/skillgap-ai" />
+</a>
+
+## 👨‍💻 Author
+
+**Cyril P Jose**
+- GitHub: [@cyril-p-jose](https://github.com/cyril-p-jose)
+- Built for Kerala college students
+
+---
+
+Made with ❤️ for student community
