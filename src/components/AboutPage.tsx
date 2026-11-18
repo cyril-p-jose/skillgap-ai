@@ -72,7 +72,7 @@ export default function AboutPage() {
 <section className="mt-10">
   <div className="bg-navy-800 rounded-xl p-6 sm:p-8 text-white">
     <div className="flex items-center gap-2">
-      <Users className="w-5 h-5" />
+      <User className="w-5 h-5" />
       <h2 className="text-lg sm:text-xl font-semibold">Open Source Project by Cyril P Jose</h2>
     </div>
     <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed">
