@@ -2,6 +2,8 @@
 
 SkillGap AI is a free web app that helps college students find their placement skill gaps in just 2 minutes.
 
+Built by **Cyril P Jose**
+
 ## 📌 Problem
 
 College students in Kerala often have no clear idea of what skills they are missing before campus placements. Companies test different skills, and students waste time preparing randomly without knowing their real weak areas.
@@ -22,6 +24,8 @@ SkillGap AI gives students a quick skill check based on their branch and target 
 - Company-specific preparation tips
 - 7 day improvement roadmap
 - Confetti celebration when score is above 80
+- About page - About SkillGap AI by Cyril P Jose
+- WhatsApp Share button on Roadmap / Report page
 - Fully responsive — works on mobile, tablet, and desktop
 
 ## 🛠 Tech Stack
@@ -34,21 +38,24 @@ SkillGap AI gives students a quick skill check based on their branch and target 
 | Tailwind CSS  | Styling and responsive design  |
 | Lucide React  | Icons                          |
 | Inter         | Font                           |
+| Supabase      | Auth and database (optional for future login) |
+| Netlify       | Deployment                     |
+| GitHub        | Code hosting                   |
 
 ## 🌐 Live Demo
 
-> Coming soon. Add your deployed app link here.
+**Live URL:** [Add your Netlify link here after deploy]
 
-**Live URL:** [Add your link here]
+> Bolt free version deployed via Netlify from GitHub.
 
 ## 🖥 How to Run Locally
 
 ```bash
 # 1. Clone the project
-git clone https://github.com/cyril-p-jose/skillgap-ai.git
+git clone https://github.com/cyril-p-jose/skillgap-ai-final.git
 
 # 2. Go into the project folder
-cd skillgap-ai
+cd skillgap-ai-final
 
 # 3. Install dependencies
 npm install
@@ -59,10 +66,46 @@ npm run dev
 
 Then open the app in your browser.
 
+For Supabase features, create a `.env` file locally:
+```
+VITE_SUPABASE_URL=your_url
+VITE_SUPABASE_ANON_KEY=your_key
+```
+Do not push `.env` file to GitHub.
+
+## 🚀 Deployment
+
+Full deployment guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+Short steps:
+1. Push code from Bolt to GitHub repo `skillgap-ai-final`
+2. Import repo in Netlify
+3. Build command: `npm run build`
+4. Publish directory: `dist`
+5. Add Environment Variables in Netlify ONLY:
+   `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+6. Deploy site
+
+No real keys are stored in GitHub.
+
+## 📝 Documentation
+
+- Prompts Used in Bolt: See [PROMPTS_USED.md](./PROMPTS_USED.md)
+- Deployment Guide: See [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+Bolt version work completed upto WhatsApp Share only. Only 3 prompts used:
+1. Initial Build
+2. About Page
+3. WhatsApp Share Feature
+
+## ⚠️ Note on Bolt Badge
+
+Bolt free version shows "Built with Bolt" badge on live site. This cannot be removed in free version. This is a Bolt limitation, not part of our code. Future rebuild version will be clean without badge.
+
 ## 📁 Project Structure
 
 ```
-skillgap-ai/
+skillgap-ai-final/
 ├── src/
 │   ├── components/
 │   │   ├── Confetti.tsx        # Confetti animation for high scores
@@ -72,14 +115,18 @@ skillgap-ai/
 │   │   ├── ReportPage.tsx      # Score, strengths, weaknesses, roadmap
 │   │   ├── SelectPage.tsx      # Branch and company selection
 │   │   ├── SkillsPage.tsx      # Skills and target role selection
-│   │   └── TestPage.tsx        # 5 question skill test
+│   │   ├── TestPage.tsx        # 5 question skill test
+│   │   └── AboutPage.tsx       # About SkillGap AI page
 │   ├── lib/
 │   │   ├── aiEngine.ts         # AI report logic and 7 day roadmap
 │   │   └── gemini.ts           # Gemini API placeholder (optional)
 │   ├── data.ts                 # Questions, branches, companies
 │   ├── App.tsx                 # Page flow
 │   └── main.tsx                # App entry point
-└── index.html
+├── index.html
+├── README.md
+├── PROMPTS_USED.md
+└── DEPLOYMENT.md
 ```
 
 ## 🔮 Future Scope
@@ -90,10 +137,11 @@ skillgap-ai/
 - Detailed topic-wise practice links
 - Leaderboard for college students
 - Downloadable PDF report
+- Rebuild in Lovable for clean version without Bolt badge
 
 ## 📞 Contact
 
 Built by **Cyril P Jose**
 
 - GitHub: [github.com/cyril-p-jose](https://github.com/cyril-p-jose)
-- LinkedIn: [Add your LinkedIn profile link here]
+- LinkedIn: https://in.linkedin.com/in/cyril-p-jose
