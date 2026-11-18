@@ -39,7 +39,7 @@ SkillGap AI gives students a quick skill check based on their branch and target 
 | Lucide React  | Icons                          |
 | Inter         | Font                           |
 | Supabase      | Auth and database (optional for future login) |
-| Netlify       | Deployment                     |
+| Vercel       | Deployment                     |
 | GitHub        | Code hosting                   |
 
 ## 🌐 Live Demo
