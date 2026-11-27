@@ -1,3 +1,5 @@
+import { skillsForBranchRole } from '@/data';
+
 export interface AIReport {
   readinessScore: number;
   strengths: string[];
@@ -12,30 +14,6 @@ export interface RoadmapDay {
   text: string;
 }
 
-const ROLE_REQUIRED_SKILLS: Record<string, string[]> = {
-  'Frontend Developer': ['React', 'Data Structures', 'Communication'],
-  'Backend Developer': ['Java', 'SQL', 'Data Structures'],
-  'Data Analyst': ['Python', 'SQL', 'Communication'],
-  'Full Stack Developer': ['React', 'Java', 'SQL'],
-  'Any Role': ['React', 'Python', 'Java', 'SQL', 'Data Structures', 'Communication'],
-};
-
-const COMPANY_PREFERRED_SKILLS: Record<string, string[]> = {
-  'UST Kochi': ['React', 'Java', 'SQL', 'Communication'],
-  'IBS Software': ['Java', 'SQL', 'Data Structures'],
-  TCS: ['Python', 'Communication', 'Data Structures'],
-  Infosys: ['Java', 'SQL', 'Python'],
-  Wipro: ['Python', 'Java', 'Data Structures'],
-};
-
-const COMPANY_TIPS: Record<string, string> = {
-  'UST Kochi': 'Focus on Agile and Cloud basics.',
-  'IBS Software': 'Focus on Aviation domain and Java.',
-  TCS: 'Focus on Aptitude and Communication.',
-  Infosys: 'Focus on OOP and DBMS.',
-  Wipro: 'Focus on Coding rounds.',
-};
-
 const GENERIC_STRENGTHS = [
   'You completed the full skill check — that initiative itself sets you apart.',
   'You are clear about your target role, which makes your preparation focused.',
@@ -48,9 +26,30 @@ const GENERIC_WEAKNESSES = [
   'Revise aptitude basics like percentages, ratios and logical reasoning.',
 ];
 
-function requiredSkillsFor(targetRole: string): string[] {
-  return ROLE_REQUIRED_SKILLS[targetRole] ?? ROLE_REQUIRED_SKILLS['Any Role'];
-}
+const COMPANY_TIPS: Record<string, string> = {
+  'UST Kochi': 'Focus on Agile and Cloud basics.',
+  'IBS Software': 'Focus on Aviation domain and Java.',
+  TCS: 'Focus on Aptitude and Communication.',
+  Infosys: 'Focus on OOP and DBMS.',
+  Wipro: 'Focus on Coding rounds.',
+  'Federal Bank': 'Focus on banking awareness, aptitude and good communication.',
+  'Tech Mahindra': 'Focus on coding rounds and core technical basics.',
+  'Local Startup': 'Focus on hands-on building, GitHub projects and clear communication.',
+  KSEB: 'Focus on power systems fundamentals and Kerala PSC-style technical aptitude.',
+};
+
+// Skills each company looks for, mapped per branch where relevant.
+const COMPANY_SKILLS: Record<string, string[]> = {
+  'UST Kochi': ['React', 'Java', 'SQL', 'Communication'],
+  'IBS Software': ['Java', 'SQL', 'Data Structures', 'Communication'],
+  TCS: ['Python', 'Communication', 'Data Structures', 'Aptitude'],
+  Infosys: ['Java', 'SQL', 'Python', 'Communication'],
+  Wipro: ['Python', 'Java', 'Data Structures', 'Communication'],
+  'Federal Bank': ['Communication', 'Aptitude', 'SQL', 'Excel'],
+  'Tech Mahindra': ['Java', 'Python', 'Data Structures', 'Communication'],
+  'Local Startup': ['Python', 'Communication', 'React', 'GitHub'],
+  KSEB: ['Power Systems', 'Circuit Analysis', 'Communication', 'Aptitude'],
+};
 
 function testScore(answers?: Record<number, 'Yes' | 'No' | 'Learning'>): number | null {
   if (!answers) return null;
@@ -60,52 +59,36 @@ function testScore(answers?: Record<number, 'Yes' | 'No' | 'Learning'>): number 
   return Math.round(points.reduce((sum, p) => sum + p, 0) / points.length);
 }
 
-function baseScore(skills: string[], targetRole: string, answers?: Record<number, 'Yes' | 'No' | 'Learning'>): number {
-  if (skills.includes('React') && targetRole === 'Frontend Developer') return 85;
-  if (skills.includes('Python') && targetRole === 'Data Analyst') return 88;
-  if (skills.includes('Java') && targetRole === 'Backend Developer') return 80;
-
-  const required = requiredSkillsFor(targetRole);
-  const matched = required.filter((s) => skills.includes(s)).length;
-  const skillMatch = Math.round((matched / required.length) * 100);
-
-  const ts = testScore(answers);
-  if (ts === null) return skillMatch;
-  return Math.round(skillMatch * 0.6 + ts * 0.4);
-}
-
 export function generateAIReport(
-  skills: string[],
+  selectedSkills: string[],
+  branch: string,
   targetRole: string,
   company: string,
   answers?: Record<number, 'Yes' | 'No' | 'Learning'>
 ): AIReport {
-  const required = requiredSkillsFor(targetRole);
-  const matched = required.filter((s) => skills.includes(s));
-  const missing = required.filter((s) => !skills.includes(s));
+  const required = skillsForBranchRole(branch, targetRole);
+  const matched = required.filter((s) => selectedSkills.includes(s.trim()));
+  const missing = required.filter((s) => !selectedSkills.includes(s.trim()));
+
+  const skillMatch = required.length > 0 ? Math.round((matched.length / required.length) * 100) : 0;
+  const ts = testScore(answers);
+  const readinessScore = Math.min(100, Math.max(0, ts === null ? skillMatch : Math.round(skillMatch * 0.6 + ts * 0.4)));
 
   const strengths = [
-    ...matched.map((s) => `Hands-on with ${s} — a core requirement for ${targetRole} interviews.`),
+    ...matched.map((s) => `Hands-on with ${s.trim()} — a core requirement for ${targetRole} interviews.`),
     ...GENERIC_STRENGTHS,
   ].slice(0, 3);
 
   const weaknesses = [
-    ...missing.map((s) => `${s} is missing from your profile — most ${targetRole} interviews will test it.`),
+    ...missing.map((s) => `${s.trim()} is missing from your profile — most ${targetRole} interviews will test it.`),
     ...GENERIC_WEAKNESSES,
   ].slice(0, 3);
 
-  const preferred = COMPANY_PREFERRED_SKILLS[company];
-  let matchPercentage: number;
-  if (preferred) {
-    const matchedCompany = preferred.filter((s) => skills.includes(s)).length;
-    matchPercentage = Math.round((matchedCompany / preferred.length) * 100);
-  } else {
-    const all = ROLE_REQUIRED_SKILLS['Any Role'];
-    const matchedAll = all.filter((s) => skills.includes(s)).length;
-    matchPercentage = Math.round((matchedAll / all.length) * 100);
-  }
-
-  const readinessScore = Math.min(100, Math.max(0, baseScore(skills, targetRole, answers)));
+  const companySkills = COMPANY_SKILLS[company] ?? [];
+  const matchPercentage =
+    companySkills.length > 0
+      ? Math.round((companySkills.filter((s) => selectedSkills.includes(s)).length / companySkills.length) * 100)
+      : skillMatch;
 
   return {
     readinessScore,
@@ -116,14 +99,16 @@ export function generateAIReport(
   };
 }
 
-export function getRoadmap(company: string): RoadmapDay[] {
+export function getRoadmap(company: string, branch: string, targetRole: string): RoadmapDay[] {
+  const tip = COMPANY_TIPS[company] ?? 'research their interview pattern and recent questions.';
+  const focus = skillsForBranchRole(branch, targetRole).slice(0, 2).join(' and ');
   return [
-    { day: 1, title: 'Basics', text: 'Revise the fundamentals of your core subjects and chosen skills.' },
-    { day: 2, title: 'Core Concepts', text: 'Go deeper into OOP, DBMS and data structures concepts.' },
-    { day: 3, title: 'Hands-on Practice', text: 'Solve coding exercises and practise SQL queries.' },
+    { day: 1, title: 'Basics', text: `Revise the fundamentals of ${branch} and your core skills.` },
+    { day: 2, title: 'Core Concepts', text: `Strengthen ${focus} for your ${targetRole} interviews.` },
+    { day: 3, title: 'Hands-on Practice', text: 'Solve exercises and write code or solve problems related to your field.' },
     { day: 4, title: 'Project', text: 'Build or polish one mini project you can explain in an interview.' },
-    { day: 5, title: 'Mock Test', text: 'Attempt one timed aptitude and coding mock test.' },
-    { day: 6, title: `Company Specific (${company})`, text: `Prepare for ${company} — ${COMPANY_TIPS[company] ?? 'research their interview pattern and recent questions.'}` },
+    { day: 5, title: 'Mock Test', text: 'Attempt one timed aptitude and technical mock test.' },
+    { day: 6, title: `Company Specific (${company})`, text: `Prepare for ${company} — ${tip}` },
     { day: 7, title: 'Revision and Confidence', text: 'Revise everything, rest well and walk in with confidence.' },
   ];
 }

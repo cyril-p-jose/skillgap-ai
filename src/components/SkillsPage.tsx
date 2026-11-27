@@ -1,9 +1,10 @@
-const SKILL_OPTIONS = ['React', 'Python', 'Java', 'SQL', 'Data Structures', 'Communication'];
-const ROLE_OPTIONS = ['Frontend Developer', 'Backend Developer', 'Data Analyst', 'Full Stack Developer', 'Any Role'];
+import { rolesForBranch, skillsForBranchRole } from '@/data';
 
 interface Props {
+  branch: string;
   skills: string[];
   onToggleSkill: (skill: string) => void;
+  onClearSkills: () => void;
   targetRole: string;
   onSelectRole: (role: string) => void;
   onContinue: () => void;
@@ -33,40 +34,59 @@ function Pill({
 }
 
 export default function SkillsPage({
+  branch,
   skills,
   onToggleSkill,
+  onClearSkills,
   targetRole,
   onSelectRole,
   onContinue,
 }: Props) {
+  const roles = rolesForBranch(branch);
+  const skillOptions = targetRole ? skillsForBranchRole(branch, targetRole) : [];
   const canContinue = skills.length > 0 && targetRole !== '';
+
+  const pickRole = (r: string) => {
+    if (targetRole !== r) {
+      onSelectRole(r);
+      onClearSkills();
+    }
+  };
 
   return (
     <div className="px-4 sm:px-6">
       <div className="mx-auto max-w-[1100px] py-8 sm:py-12">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Your skills and target role</h1>
         <p className="mt-2 text-gray-600 text-sm sm:text-base">
-          Pick what you already know and the role you are preparing for.
+          Pick a role for your {branch} branch, then choose the skills you already have.
         </p>
 
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <section>
-            <h2 className="text-base sm:text-lg font-semibold text-gray-900">Select Your Skills</h2>
-            <p className="mt-1 text-sm text-gray-500">Choose all that apply</p>
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-3">
-              {SKILL_OPTIONS.map((s) => (
-                <Pill key={s} label={s} active={skills.includes(s)} onClick={() => onToggleSkill(s)} />
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900">Select Target Role</h2>
+            <p className="mt-1 text-sm text-gray-500">Roles relevant to your branch</p>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {roles.map((r) => (
+                <Pill key={r} label={r} active={targetRole === r} onClick={() => pickRole(r)} />
               ))}
             </div>
           </section>
 
           <section>
-            <h2 className="text-base sm:text-lg font-semibold text-gray-900">Select Target Role</h2>
-            <p className="mt-1 text-sm text-gray-500">What kind of job are you aiming for?</p>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {ROLE_OPTIONS.map((r) => (
-                <Pill key={r} label={r} active={targetRole === r} onClick={() => onSelectRole(r)} />
-              ))}
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900">Select Your Skills</h2>
+            <p className="mt-1 text-sm text-gray-500">
+              {targetRole ? 'Choose all that apply' : 'Pick a role to see relevant skills'}
+            </p>
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+              {targetRole ? (
+                skillOptions.map((s) => (
+                  <Pill key={s} label={s} active={skills.includes(s)} onClick={() => onToggleSkill(s)} />
+                ))
+              ) : (
+                <div className="col-span-full bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500 text-sm sm:text-base">
+                  Choose a role to see the skills that matter for it.
+                </div>
+              )}
             </div>
           </section>
         </div>

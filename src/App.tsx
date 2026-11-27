@@ -29,8 +29,8 @@ export default function App() {
   const submitTest = () => {
     go('loading');
     window.setTimeout(() => {
-      setReport(generateAIReport(skills, targetRole, selection.company, answers));
-      setRoadmap(getRoadmap(selection.company));
+      setReport(generateAIReport(skills, selection.branch, targetRole, selection.company, answers));
+      setRoadmap(getRoadmap(selection.company, selection.branch, targetRole));
       go('report');
     }, 2000);
   };
@@ -61,10 +61,12 @@ export default function App() {
         )}
         {page === 'skills' && (
           <SkillsPage
+            branch={selection.branch}
             skills={skills}
             onToggleSkill={(s) =>
               setSkills((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]))
             }
+            onClearSkills={() => setSkills([])}
             targetRole={targetRole}
             onSelectRole={setTargetRole}
             onContinue={() => go('test')}
