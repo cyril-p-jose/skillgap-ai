@@ -1,4 +1,4 @@
-import { BRANCHES, companiesForBranch, type Selection } from '@/data';
+import { BRANCHES, companiesForBranch, COMPANY_INFO, type Selection } from '@/data';
 
 interface Props {
   selection: Selection;
@@ -55,7 +55,7 @@ export default function SelectPage({ selection, onChange, onContinue }: Props) {
             <p className="mt-1 text-sm text-gray-500">
               {selection.branch ? 'Where do you want to get placed?' : 'Pick a branch to see companies'}
             </p>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto pr-1">
               {selection.branch ? (
                 companies.map((c) => (
                   <button
@@ -67,7 +67,12 @@ export default function SelectPage({ selection, onChange, onContinue }: Props) {
                         : 'bg-gray-100 border-transparent text-gray-700 hover:border-navy-200'
                     }`}
                   >
-                    {c}
+                    <span className="block font-semibold">{c}</span>
+                    {COMPANY_INFO[c] && (
+                      <span className="mt-0.5 block text-xs sm:text-[13px] font-normal text-gray-500 leading-snug">
+                        {COMPANY_INFO[c]}
+                      </span>
+                    )}
                   </button>
                 ))
               ) : (

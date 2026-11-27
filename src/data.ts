@@ -11,13 +11,33 @@ export interface AnswerMap {
 
 export const BRANCHES = ['CSE', 'ECE', 'EEE', 'Mechanical', 'Civil'];
 
-// Companies relevant to each engineering branch in Kerala placement context.
+// Companies that recruit each engineering branch (Kerala / India placement context).
 export const BRANCH_COMPANIES: Record<string, string[]> = {
-  CSE: ['UST Kochi', 'IBS Software', 'TCS', 'Infosys', 'Wipro', 'Federal Bank', 'Tech Mahindra', 'Local Startup'],
-  ECE: ['UST Kochi', 'IBS Software', 'TCS', 'Infosys', 'Tech Mahindra', 'Federal Bank', 'Local Startup'],
-  EEE: ['Federal Bank', 'TCS', 'Infosys', 'Tech Mahindra', 'Local Startup', 'KSEB'],
-  Mechanical: ['Local Startup', 'Federal Bank', 'TCS', 'Infosys', 'Tech Mahindra'],
-  Civil: ['Local Startup', 'Federal Bank', 'TCS', 'Infosys'],
+  CSE: [
+    'UST Kochi', 'IBS Software', 'TCS', 'Infosys', 'Wipro', 'Accenture',
+    'Cognizant', 'Tech Mahindra', 'Capgemini', 'HCL', 'Federal Bank',
+    'Amazon', 'Goldman Sachs', 'Oracle', 'Microsoft', 'SAP', 'Local Startup',
+  ],
+  ECE: [
+    'UST Kochi', 'IBS Software', 'TCS', 'Infosys', 'Wipro', 'Accenture',
+    'Tech Mahindra', 'BEL', 'BHEL', 'ISRO', 'Keltron', 'Federal Bank',
+    'Qualcomm', 'Texas Instruments', 'Nokia', 'Local Startup',
+  ],
+  EEE: [
+    'Federal Bank', 'TCS', 'Infosys', 'Tech Mahindra', 'Wipro', 'KSEB',
+    'BHEL', 'BEL', 'Keltron', 'ISRO', 'NTPC', 'Cochin Shipyard',
+    'Local Startup',
+  ],
+  Mechanical: [
+    'Local Startup', 'Federal Bank', 'TCS', 'Infosys', 'Tech Mahindra',
+    'BHEL', 'Ashok Leyland', 'Tata Motors', 'Maruti Suzuki', 'TVS',
+    'Cochin Shipyard', 'L&T', 'Caterpillar', 'Godrej',
+  ],
+  Civil: [
+    'Local Startup', 'Federal Bank', 'TCS', 'Infosys', 'L&T',
+    'Afcons Infrastructure', 'Shapoorji Pallonji', 'TATA Realty',
+    'DLF', 'Sobha', 'Cochin Shipyard', 'PWD Kerala', 'KSEB',
+  ],
 };
 
 // Roles available for each branch.
@@ -101,6 +121,50 @@ export const QUESTIONS: Question[] = [
 export function companiesForBranch(branch: string): string[] {
   return BRANCH_COMPANIES[branch] ?? ['Local Startup', 'TCS', 'Infosys'];
 }
+
+// A short description for each company (shown where helpful).
+export const COMPANY_INFO: Record<string, string> = {
+  'UST Kochi': 'Digital transformation company in Kochi — hires software engineers.',
+  'IBS Software': 'Travel and aviation software firm in Thiruvananthapuram.',
+  TCS: 'Mass recruiter across all branches — strong aptitude and coding rounds.',
+  Infosys: 'Mass recruiter — focuses on OOP, DBMS and logical reasoning.',
+  Wipro: 'IT services giant — coding and technical HR rounds.',
+  Accenture: 'IT and consulting — communication and coding tests.',
+  Cognizant: 'IT services — aptitude and coding assessment.',
+  'Tech Mahindra': 'IT and telecom — coding rounds and core technical basics.',
+  Capgemini: 'IT consulting — aptitude and pseudocode rounds.',
+  HCL: 'IT services — technical and coding rounds.',
+  'Federal Bank': 'Banking — aptitude, banking awareness and strong English.',
+  Amazon: 'Product MNC — heavy DSA, system design and leadership principles.',
+  'Goldman Sachs': 'FinTech — strong coding, DSA, maths and finance basics.',
+  Oracle: 'Product company — SQL, DBMS, Java and DSA focus.',
+  Microsoft: 'Product MNC — DSA, system design and problem solving.',
+  SAP: 'Enterprise software — Java, ABAP and cloud basics.',
+  BEL: 'Defence PSU (ECE/Electronics) — technical core and written test.',
+  BHEL: 'Public sector — core technical and GATE-style aptitude.',
+  ISRO: 'Space research — core technical, electronics and fundamentals.',
+  Keltron: 'Kerala PSU (electronics) — technical core and PSC-style test.',
+  Qualcomm: 'Chip design MNC — embedded C, DS and digital electronics.',
+  'Texas Instruments': 'Semiconductor MNC — analog, digital and embedded skills.',
+  Nokia: 'Telecom MNC — networking, wireless and C/Python.',
+  KSEB: 'Kerala power utility — power systems and PSC-style technical test.',
+  NTPC: 'Power PSU — core technical and GATE-style aptitude.',
+  'Cochin Shipyard': 'Shipbuilding PSU — mechanical/civil core and safety basics.',
+  'Ashok Leyland': 'Automotive MNC — design, thermodynamics and manufacturing.',
+  'Tata Motors': 'Automotive giant — manufacturing, design and CAD.',
+  'Maruti Suzuki': 'Automotive MNC — production, quality and CAD.',
+  TVS: 'Automotive group — manufacturing, design and GD&T.',
+  'L&T': 'Construction and engineering giant — site, design and project basics.',
+  Caterpillar: 'Heavy equipment MNC — design, manufacturing and CAD.',
+  Godrej: 'Diversified MNC — design, manufacturing and aptitude.',
+  'Afcons Infrastructure': 'Infrastructure major — civil/site engineering core.',
+  'Shapoorji Pallonji': 'Construction major — site engineering and estimation.',
+  'TATA Realty': 'Real estate and infrastructure — structural and site skills.',
+  DLF: 'Real estate major — structural design and project management.',
+  Sobha: 'Construction and real estate — site engineering and quality.',
+  'PWD Kerala': 'Public works — civil core and Kerala PSC-style test.',
+  'Local Startup': 'Kerala startup ecosystem — hands-on building and GitHub projects.',
+};
 
 export function rolesForBranch(branch: string): string[] {
   return BRANCH_ROLES[branch] ?? ['Any Role'];
