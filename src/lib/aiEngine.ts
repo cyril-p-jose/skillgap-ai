@@ -118,7 +118,28 @@ function testScore(answers?: Record<number, 'Yes' | 'No' | 'Learning'>): number 
   const values = Object.values(answers);
   if (values.length === 0) return null;
   const points = values.map((a) => (a === 'Yes' ? 100 : a === 'Learning' ? 50 : 0));
-  return Math.round(points.reduce((sum, p) => sum + p, 0) / points.length);
+  return Math.round(points.reduce((sum, p) => sum + p, 0) / values.length);
+}
+
+// Effective skills = skills the user selected AND confirmed in the test.
+// "Learning" keeps the skill as partial; "No" drops it.
+export function effectiveSkills(
+  selectedSkills: string[],
+  questions: { id: number; skill: string }[],
+  answers: Record<number, 'Yes' | 'No' | 'Learning'>
+): string[] {
+  const bySkill = new Map<string, 'Yes' | 'No' | 'Learning'>();
+  questions.forEach((q) => {
+    const a = answers[q.id];
+    if (a) bySkill.set(q.skill.trim(), a);
+  });
+  return selectedSkills
+    .map((s) => s.trim())
+    .filter((s) => {
+      const a = bySkill.get(s);
+      if (a === undefined) return true;
+      return a === 'Yes' || a === 'Learning';
+    });
 }
 
 export function generateAIReport(
@@ -126,11 +147,15 @@ export function generateAIReport(
   branch: string,
   targetRole: string,
   company: string,
-  answers?: Record<number, 'Yes' | 'No' | 'Learning'>
+  answers?: Record<number, 'Yes' | 'No' | 'Learning'>,
+  questions?: { id: number; skill: string }[]
 ): AIReport {
+  const skills =
+    questions && answers ? effectiveSkills(selectedSkills, questions, answers) : selectedSkills.map((s) => s.trim());
+
   const required = skillsForBranchRole(branch, targetRole);
-  const matched = required.filter((s) => selectedSkills.includes(s.trim()));
-  const missing = required.filter((s) => !selectedSkills.includes(s.trim()));
+  const matched = required.filter((s) => skills.includes(s.trim()));
+  const missing = required.filter((s) => !skills.includes(s.trim()));
 
   const skillMatch = required.length > 0 ? Math.round((matched.length / required.length) * 100) : 0;
   const ts = testScore(answers);
@@ -149,7 +174,7 @@ export function generateAIReport(
   const companySkills = COMPANY_SKILLS[company] ?? [];
   const matchPercentage =
     companySkills.length > 0
-      ? Math.round((companySkills.filter((s) => selectedSkills.includes(s)).length / companySkills.length) * 100)
+      ? Math.round((companySkills.filter((s) => skills.includes(s)).length / companySkills.length) * 100)
       : skillMatch;
 
   return {

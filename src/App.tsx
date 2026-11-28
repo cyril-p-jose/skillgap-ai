@@ -10,7 +10,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 import Confetti from '@/components/Confetti';
 import { generateAIReport, getRoadmap } from '@/lib/aiEngine';
 import type { AIReport, RoadmapDay } from '@/lib/aiEngine';
-import type { AnswerMap, Page, Selection } from '@/data';
+import { questionsForSkills, type AnswerMap, type Page, type Question, type Selection } from '@/data';
 
 export default function App() {
   const [page, setPage] = useState<Page>('home');
@@ -20,6 +20,7 @@ export default function App() {
   const [targetRole, setTargetRole] = useState('');
   const [report, setReport] = useState<AIReport | null>(null);
   const [roadmap, setRoadmap] = useState<RoadmapDay[]>([]);
+  const [testQuestions, setTestQuestions] = useState<Question[]>([]);
 
   const go = (p: Page) => {
     setPage(p);
@@ -29,7 +30,7 @@ export default function App() {
   const submitTest = () => {
     go('loading');
     window.setTimeout(() => {
-      setReport(generateAIReport(skills, selection.branch, targetRole, selection.company, answers));
+      setReport(generateAIReport(skills, selection.branch, targetRole, selection.company, answers, testQuestions));
       setRoadmap(getRoadmap(selection.company, selection.branch, targetRole));
       go('report');
     }, 2000);
@@ -42,6 +43,7 @@ export default function App() {
     setTargetRole('');
     setReport(null);
     setRoadmap([]);
+    setTestQuestions([]);
     go('home');
   };
 
@@ -69,11 +71,16 @@ export default function App() {
             onClearSkills={() => setSkills([])}
             targetRole={targetRole}
             onSelectRole={setTargetRole}
-            onContinue={() => go('test')}
+            onContinue={() => {
+              setTestQuestions(questionsForSkills(skills));
+              setAnswers({});
+              go('test');
+            }}
           />
         )}
         {page === 'test' && (
           <TestPage
+            questions={testQuestions}
             answers={answers}
             onAnswer={(id, value) => setAnswers((a) => ({ ...a, [id]: value }))}
             onSubmit={submitTest}

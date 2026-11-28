@@ -173,3 +173,27 @@ export function rolesForBranch(branch: string): string[] {
 export function skillsForBranchRole(branch: string, role: string): string[] {
   return BRANCH_ROLE_SKILLS[branch]?.[role] ?? BRANCH_ROLE_SKILLS[branch]?.['Any Role'] ?? ['Communication'];
 }
+
+// Two universal questions shown for everyone, plus one per selected skill.
+export const UNIVERSAL_QUESTIONS: Question[] = [
+  {
+    id: 9001,
+    text: 'Are you comfortable speaking in English during a group discussion or interview?',
+    skill: 'Communication',
+  },
+  {
+    id: 9002,
+    text: 'Have you built at least one mini project or done an internship so far?',
+    skill: 'Practical Experience',
+  },
+];
+
+export function questionsForSkills(skills: string[]): Question[] {
+  const trimmed = skills.map((s) => s.trim()).filter(Boolean);
+  const skillQuestions: Question[] = trimmed.slice(0, 3).map((s, i) => ({
+    id: 1000 + i,
+    text: `Do you feel confident in ${s} — can you answer interview-level questions on it?`,
+    skill: s,
+  }));
+  return [...skillQuestions, ...UNIVERSAL_QUESTIONS];
+}
